@@ -1,0 +1,41 @@
+{
+    "name": "electronics-store",
+    "version": "1.0.0",
+    "description": "Production-ready electronics e-commerce store",
+    "private": true,
+    "scripts": {
+        "dev": "turbo run dev",
+        "build": "turbo run build",
+        "start": "turbo run start",
+        "test": "turbo run test",
+        "lint": "turbo run lint",
+        "type-check": "turbo run type-check",
+        "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+        "prepare": "husky install",
+        "seed": "pnpm --filter backend seed",
+        "clean": "turbo run clean && rm -rf node_modules"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "eslint": "^8.55.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^15.2.0",
+        "prettier": "^3.1.0",
+        "turbo": "^1.11.0",
+        "typescript": "^5.3.2"
+    },
+    "packageManager": "pnpm@8.12.0",
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=8.0.0"
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
+        "*.{json,md}": [
+            "prettier --write"
+        ]
+    }
+}
