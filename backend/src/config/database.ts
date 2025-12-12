@@ -3,6 +3,9 @@ import { config } from './index';
 
 export const connectDatabase = async (): Promise<void> => {
     try {
+        if (!process.env.MONGODB_URI) {
+            console.warn('⚠️  MONGODB_URI is not defined. Using default: mongodb://localhost:27017/electronics_store');
+        }
         const conn = await mongoose.connect(config.mongodb.uri, {
             maxPoolSize: 10,
             serverSelectionTimeoutMS: 5000,

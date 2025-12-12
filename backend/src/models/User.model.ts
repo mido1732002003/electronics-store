@@ -112,7 +112,7 @@ userSchema.virtual('fullName').get(function () {
 });
 
 // Index for faster queries
-userSchema.index({ email: 1 });
+// userSchema.index({ email: 1 }); // Already indexed by unique: true
 userSchema.index({ role: 1 });
 userSchema.index({ createdAt: -1 });
 

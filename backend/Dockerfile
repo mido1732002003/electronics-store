@@ -16,9 +16,9 @@ RUN pnpm install
 COPY . .
 
 # Build TypeScript
-RUN pnpm build || true
+RUN pnpm build
 
 EXPOSE 5000
 
-# Development command
-CMD ["pnpm", "dev"]
+# Production command
+CMD ["pnpm", "start"]

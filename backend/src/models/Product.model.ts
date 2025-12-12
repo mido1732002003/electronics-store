@@ -258,8 +258,8 @@ productSchema.virtual('primaryImage').get(function () {
 });
 
 // Indexes
-productSchema.index({ slug: 1 });
-productSchema.index({ sku: 1 });
+// productSchema.index({ slug: 1 }); // Already indexed by unique: true
+// productSchema.index({ sku: 1 }); // Already indexed by unique: true
 productSchema.index({ category: 1 });
 productSchema.index({ subcategory: 1 });
 productSchema.index({ brand: 1 });

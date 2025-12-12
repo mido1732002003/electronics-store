@@ -33,6 +33,8 @@ const TermsPage = lazy(() => import('./pages/info/InfoPage').then(m => ({ defaul
 import AdminLayout from './layouts/AdminLayout';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminProductsPage from './pages/admin/AdminProductsPage';
+import AdminOrdersPage from './pages/admin/AdminOrdersPage';
+import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminRoute from './components/AdminRoute';
 
 const PageLoader = () => (
@@ -46,6 +48,58 @@ function App() {
     return (
         <>
             <Routes>
+                {/* Admin Routes - Protected and Suspense Wrapped */}
+                {/* Placed BEFORE MainLayout to avoid falling into catch-all or default structure issues */}
+                <Route
+                    element={
+                        <Suspense fallback={<PageLoader />}>
+                            <AdminRoute />
+                        </Suspense>
+                    }
+                >
+                    <Route
+                        path="/admin"
+                        element={
+                            <Suspense fallback={<PageLoader />}>
+                                <AdminLayout />
+                            </Suspense>
+                        }
+                    >
+                        <Route
+                            index
+                            element={
+                                <Suspense fallback={<PageLoader />}>
+                                    <AdminDashboardPage />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="products"
+                            element={
+                                <Suspense fallback={<PageLoader />}>
+                                    <AdminProductsPage />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="orders"
+                            element={
+                                <Suspense fallback={<PageLoader />}>
+                                    <AdminOrdersPage />
+                                </Suspense>
+                            }
+                        />
+                        <Route
+                            path="users"
+                            element={
+                                <Suspense fallback={<PageLoader />}>
+                                    <AdminUsersPage />
+                                </Suspense>
+                            }
+                        />
+                    </Route>
+                </Route>
+
                 <Route path="/" element={<MainLayout />}>
                     <Route
                         index
@@ -223,78 +277,6 @@ function App() {
                             </Suspense>
                         }
                     />
-                </Route>
-
-                {/* Admin Routes */}
-                {/* Admin Routes - Protected and Suspense Wrapped */}
-                <Route
-                    element={
-                        <Suspense fallback={<PageLoader />}>
-                            <AdminRoute />
-                        </Suspense>
-                    }
-                >
-                    <Route
-                        path="/admin"
-                        element={
-                            <Suspense fallback={<PageLoader />}>
-                                <AdminLayout />
-                            </Suspense>
-                        }
-                    >
-                        <Route
-                            index
-                            element={
-                                <Suspense fallback={<PageLoader />}>
-                                    <AdminDashboardPage />
-                                </Suspense>
-                            }
-                        />
-                        <Route
-                            path="products"
-                            element={
-                                <Suspense fallback={<PageLoader />}>
-                                    <AdminProductsPage />
-                                </Suspense>
-                            }
-                        />
-                        {/* TODO: Add Orders and Users pages when ready, currently they were missing in the debug block but present in original file? 
-                             Wait, I need to check the ORIGINAL file content from step 19 to see what was there.
-                             Original had: 
-                             <Route path="/admin" element={<AdminLayout />}>
-                                <Route index element={<AdminDashboardPage />} />
-                                <Route path="products" element={<AdminProductsPage />} />
-                             </Route>
-                             The user said "orders, users are 404".
-                             Looking at the screenshot sidebar, there are links to "Orders" and "Users".
-                             But in the Original App.tsx (Step 19), lines 230-233 ONLY had Dashboard and Products!
-                             
-                             <Route path="/admin" element={<AdminLayout />}>
-                                <Route index element={<AdminDashboardPage />} />
-                                <Route path="products" element={<AdminProductsPage />} />
-                             </Route>
-                             
-                             So they were ALWAYS missing. I need to add routes for Orders and Users.
-                         */}
-                        <Route
-                            path="orders"
-                            element={
-                                <div className="p-8 text-center text-text-secondary">
-                                    <h2 className="text-2xl font-bold">Orders Management</h2>
-                                    <p>Coming Soon</p>
-                                </div>
-                            }
-                        />
-                        <Route
-                            path="users"
-                            element={
-                                <div className="p-8 text-center text-text-secondary">
-                                    <h2 className="text-2xl font-bold">User Management</h2>
-                                    <p>Coming Soon</p>
-                                </div>
-                            }
-                        />
-                    </Route>
                 </Route>
             </Routes>
             <Toaster position="top-right" reverseOrder={false} />
