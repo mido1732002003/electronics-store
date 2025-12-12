@@ -13,7 +13,7 @@ const router = Router();
  */
 
 // Public routes
-router.get('/', validate(productQuerySchema, 'query'), productController.getProducts);
+router.get('/', validate(productQuerySchema as any, 'query'), productController.getProducts);
 router.get('/featured', productController.getFeaturedProducts);
 router.get('/new-arrivals', productController.getNewArrivals);
 router.get('/best-sellers', productController.getBestSellers);

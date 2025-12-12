@@ -93,12 +93,12 @@ const userSchema = new Schema<IUserDocument>(
         toJSON: {
             virtuals: true,
             transform: function (_, ret) {
-                delete ret.password;
-                delete ret.passwordResetToken;
-                delete ret.passwordResetExpires;
-                delete ret.emailVerificationToken;
-                delete ret.emailVerificationExpires;
-                delete ret.__v;
+                delete (ret as any).password;
+                delete (ret as any).passwordResetToken;
+                delete (ret as any).passwordResetExpires;
+                delete (ret as any).emailVerificationToken;
+                delete (ret as any).emailVerificationExpires;
+                delete (ret as any).__v;
                 return ret;
             },
         },

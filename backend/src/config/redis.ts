@@ -7,7 +7,6 @@ export const getRedisClient = (): Redis => {
     if (!redisClient) {
         redisClient = new Redis(config.redis.url, {
             maxRetriesPerRequest: 3,
-            retryDelayOnFailover: 100,
             enableReadyCheck: true,
             lazyConnect: true,
         });

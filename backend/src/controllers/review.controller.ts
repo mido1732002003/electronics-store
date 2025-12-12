@@ -58,10 +58,16 @@ export const getProductReviews = asyncHandler(async (req: Request, res: Response
         distribution[r._id as keyof typeof distribution] = r.count;
     });
 
-    return ApiResponse.paginated(res, {
+    const totalPages = Math.ceil(total / limit);
+    return ApiResponse.success(res, {
         reviews,
         ratingDistribution: distribution,
-    }, total, page, limit);
+    }, 'Success', 200, {
+        page,
+        limit,
+        total,
+        totalPages,
+    });
 });
 
 /**

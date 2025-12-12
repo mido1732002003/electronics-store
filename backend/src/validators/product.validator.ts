@@ -39,14 +39,14 @@ export const createProductSchema = z.object({
 export const updateProductSchema = createProductSchema.partial();
 
 export const productQuerySchema = z.object({
-    page: z.string().optional().transform(val => val ? parseInt(val, 10) : 1),
-    limit: z.string().optional().transform(val => val ? parseInt(val, 10) : 10),
+    page: z.coerce.number().int().default(1),
+    limit: z.coerce.number().int().default(10),
     category: z.string().optional(),
     subcategory: z.string().optional(),
     brand: z.string().optional(),
-    minPrice: z.string().optional().transform(val => val ? parseFloat(val) : undefined),
-    maxPrice: z.string().optional().transform(val => val ? parseFloat(val) : undefined),
-    rating: z.string().optional().transform(val => val ? parseFloat(val) : undefined),
+    minPrice: z.coerce.number().optional(),
+    maxPrice: z.coerce.number().optional(),
+    rating: z.coerce.number().optional(),
     inStock: z.string().optional().transform(val => val === 'true'),
     search: z.string().optional(),
     sortBy: z.enum(['price', 'rating', 'newest', 'popular', 'name']).optional(),
